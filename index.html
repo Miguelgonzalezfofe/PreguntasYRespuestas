@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preguntas y Respuestas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Preguntas y Respuestas</h1>
+        <div id="config">
+            <h2>Configuración del Juego</h2>
+            <label for="playerName">Nombre del Jugador:</label>
+            <input type="text" id="playerName" placeholder="Nombre del Jugador">
+            <label for="theme">Tema:</label>
+            <select id="theme"></select>
+            <label for="difficulty">Dificultad:</label>
+            <select id="difficulty">
+                <option value="Fácil">Fácil</option>
+                <option value="Medio">Medio</option>
+                <option value="Difícil">Difícil</option>
+            </select>
+            <button id="startButton">Iniciar Juego</button>
+        </div>
+        <div id="quiz" style="display: none;">
+            <h2 id="questionCount"></h2>
+            <p id="questionText"></p>
+            <div id="options"></div>
+            <p id="feedback"></p>
+            <p id="points"></p>
+        </div>
+        <div id="results" style="display: none;">
+            <h2>Juego Terminado</h2>
+            <ul id="scoreList"></ul>
+            <button id="shareButton">Compartir por WhatsApp</button>
+        </div>
+    </div>
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1a1a1a;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    max-width: 600px;
+}
+
+button {
+    color: rgb(78, 55, 55);
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+input, select {
+    margin: 10px 0;
+    padding: 10px;
+    width: calc(100% - 22px);
+    border-radius: 5px;
+    border: none;
+}
+
+/* Estilos específicos para equipos */
+.boca-juniors {
+    background-color: #0033a0;
+    color: #ffd700;
+}
+
+.boca-juniors .container {
+    background-color: #0033a0;
+}
+
+.boca-juniors button {
+    background-color: #ffd700;
+}
+
+.river-plate {
+    background-color: #ffffff;
+    color: #ff0000;
+}
+
+.river-plate .container {
+    background-color: #ffffff;
+    color: #000;
+}
+
+.river-plate button {
+    background-color: #ff0000;
+    color: #ffffff;
+}
+
+.independiente {
+    background-color: #ff0000;
+    color: #ffffff;
+}
+
+.independiente .container {
+    background-color: #ff0000;
+}
+
+.independiente button {
+    background-color: #ffffff;
+    color: #ff0000;
+}
+
+.racing-club {
+    background-color: #00a9e0;
+    color: #ffffff;
+}
+
+.racing-club .container {
+    background-color: #00a9e0;
+}
+
+.racing-club button {
+    background-color: #ffffff;
+    color: #00a9e0;
+}
