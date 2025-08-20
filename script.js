@@ -1,102 +1,147 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const themes = Object.keys(questionsData.themes);
-    const themeSelect = document.getElementById('theme');
-    themes.forEach(theme => {
-        const option = document.createElement('option');
-        option.value = theme;
-        option.textContent = theme;
-        themeSelect.appendChild(option);
-    });
+// Clase principal para el juego de preguntas
+class QuizGame {
+    constructor(questionsData) {
+        this.questionsData = questionsData;
+        this.themeSelect = document.getElementById('theme');
+        this.startButton = document.getElementById('startButton');
+        this.quizDiv = document.getElementById('quiz');
+        this.resultsDiv = document.getElementById('results');
+        this.configDiv = document.getElementById('config');
+        this.feedback = document.getElementById('feedback');
+        this.pointsDisplay = document.getElementById('points');
+        this.playerNameInput = document.getElementById('playerName');
+        this.shareButton = document.getElementById('shareButton');
+        this.scoreList = document.getElementById('scoreList');
+        this.playerName = '';
+        this.score = 0;
+        this.questions = [];
+        this.currentQuestionIndex = 0;
+        this.init();
+    }
 
-    const startButton = document.getElementById('startButton');
-    const quizDiv = document.getElementById('quiz');
-    const resultsDiv = document.getElementById('results');
-    const configDiv = document.getElementById('config');
-    const feedback = document.getElementById('feedback');
-    const pointsDisplay = document.getElementById('points');
-    const playerNameInput = document.getElementById('playerName');
-    let playerName = '';
-    let score = 0;
-    let questions = [];
-    let currentQuestionIndex = 0;
+    // Inicializa el juego y los eventos
+    init() {
+        this.loadThemes();
+        this.startButton.addEventListener('click', () => this.startGame());
+        this.shareButton.addEventListener('click', () => this.shareScore());
+    }
 
-    startButton.addEventListener('click', function() {
-        playerName = playerNameInput.value || 'Jugador';
-        score = 0;
-        const selectedTheme = themeSelect.value;
-        questions = questionsData.themes[selectedTheme];
-        shuffleArray(questions);
-        currentQuestionIndex = 0;
-        configDiv.style.display = 'none';
-        quizDiv.style.display = 'block';
-        feedback.textContent = '';
-        pointsDisplay.textContent = `Puntos: ${score}`;
-        applyTeamStyles(selectedTheme);
-        showQuestion();
-    });
+    // Carga los temas en el select
+    loadThemes() {
+        const themes = Object.keys(this.questionsData.themes);
+        themes.forEach(theme => {
+            const option = document.createElement('option');
+            option.value = theme;
+            option.textContent = theme;
+            this.themeSelect.appendChild(option);
+        });
+    }
 
-    function showQuestion() {
+    // Inicia el juego
+    startGame() {
+        const playerName = this.playerNameInput.value.trim();
+        const selectedTheme = this.themeSelect.value;
+        const difficultySelect = document.getElementById('difficulty');
+        const selectedDifficulty = difficultySelect ? difficultySelect.value : '';
+
+        const formError = document.getElementById('formError');
+        formError.textContent = '';
+        if (!playerName) {
+            formError.textContent = 'Debes ingresar tu nombre.';
+            return;
+        }
+        if (!selectedTheme) {
+            formError.textContent = 'Debes seleccionar un equipo.';
+            return;
+        }
+        if (!selectedDifficulty) {
+            formError.textContent = 'Debes seleccionar la dificultad.';
+            return;
+        }
+
+        this.playerName = playerName;
+        this.score = 0;
+        this.questions = [...this.questionsData.themes[selectedTheme]];
+        this.shuffleArray(this.questions);
+        this.currentQuestionIndex = 0;
+        this.configDiv.style.display = 'none';
+        this.quizDiv.style.display = 'block';
+        this.feedback.textContent = '';
+        this.feedback.style.color = '';
+        this.pointsDisplay.textContent = `Puntos: ${this.score}`;
+        this.applyTeamStyles(selectedTheme);
+        this.showQuestion();
+    }
+
+    // Muestra la pregunta actual
+    showQuestion() {
         const questionCount = document.getElementById('questionCount');
         const questionText = document.getElementById('questionText');
         const optionsDiv = document.getElementById('options');
-        const question = questions[currentQuestionIndex];
-        questionCount.textContent = `Pregunta ${currentQuestionIndex + 1} / ${questions.length}`;
+        const question = this.questions[this.currentQuestionIndex];
+        questionCount.textContent = `Pregunta ${this.currentQuestionIndex + 1} / ${this.questions.length}`;
         questionText.textContent = question.text;
         optionsDiv.innerHTML = '';
         question.options.forEach((option, index) => {
             const button = document.createElement('button');
             button.textContent = option;
-            button.addEventListener('click', () => checkAnswer(index));
+            button.addEventListener('click', () => this.checkAnswer(index));
             optionsDiv.appendChild(button);
         });
     }
 
-    function checkAnswer(selectedIndex) {
-        const question = questions[currentQuestionIndex];
+    // Verifica la respuesta seleccionada
+    checkAnswer(selectedIndex) {
+        const question = this.questions[this.currentQuestionIndex];
         if (selectedIndex === question.correct) {
-            feedback.textContent = '¡Correcto!';
-            score += 100;
+            this.feedback.textContent = '¡Correcto!';
+            this.score += 100;
         } else {
-            feedback.textContent = 'Incorrecto.';
+            this.feedback.textContent = 'Incorrecto.';
         }
-        pointsDisplay.textContent = `Puntos: ${score}`;
-        currentQuestionIndex++;
+        this.pointsDisplay.textContent = `Puntos: ${this.score}`;
+        this.currentQuestionIndex++;
         setTimeout(() => {
-            if (currentQuestionIndex < questions.length) {
-                feedback.textContent = '';
-                showQuestion();
+            if (this.currentQuestionIndex < this.questions.length) {
+                this.feedback.textContent = '';
+                this.showQuestion();
             } else {
-                showResults();
+                this.showResults();
             }
         }, 1000);
     }
 
-    function showResults() {
-        quizDiv.style.display = 'none';
-        resultsDiv.style.display = 'block';
-        const scoreList = document.getElementById('scoreList');
-        scoreList.innerHTML = '';
+    // Muestra los resultados finales
+    showResults() {
+        this.quizDiv.style.display = 'none';
+        this.resultsDiv.style.display = 'block';
+        this.scoreList.innerHTML = '';
+        const maxScore = this.questions.length * 100;
         const li = document.createElement('li');
-        li.textContent = `${playerName}: ${score} puntos`;
-        scoreList.appendChild(li);
+        li.textContent = `${this.playerName}: ${this.score} de ${maxScore} puntos`;
+        this.scoreList.appendChild(li);
     }
 
-    const shareButton = document.getElementById('shareButton');
-    shareButton.addEventListener('click', function() {
-        const scoreMessage = `${playerName}: ${score} puntos`;
+    // Comparte el puntaje por WhatsApp con mensaje personalizado
+    shareScore() {
+        const selectedTeam = this.themeSelect.value;
+        const maxScore = this.questions.length * 100;
+        const scoreMessage = `¡Mira este juego! Jugué con el equipo ${selectedTeam} y obtuve ${this.score} de ${maxScore} puntos. Pruébalo y vamos a ver cuánto sabes de tu equipo. https://preguntas-y-respuestas.vercel.app/`;
         const whatsappLink = `https://wa.me/?text=${encodeURIComponent(scoreMessage)}`;
         window.open(whatsappLink, '_blank');
-    });
+    }
 
-    function shuffleArray(array) {
+    // Mezcla el array de preguntas
+    shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
     }
 
-    function applyTeamStyles(team) {
-        document.body.className = ''; // reset any existing classes
+    // Aplica estilos según el equipo seleccionado
+    applyTeamStyles(team) {
+        document.body.className = '';
         switch(team) {
             case 'Boca Juniors':
                 document.body.classList.add('boca-juniors');
@@ -113,5 +158,14 @@ document.addEventListener('DOMContentLoaded', function() {
             default:
                 break;
         }
+    }
+}
+
+// Inicializa el juego cuando el DOM está listo
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof questionsData !== 'undefined') {
+        new QuizGame(questionsData);
+    } else {
+        console.error('questionsData no está definido');
     }
 });

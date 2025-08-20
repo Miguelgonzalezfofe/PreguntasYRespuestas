@@ -2,26 +2,48 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preguntas y Respuestas</title>
+    <title>Preguntas de futbol por Miguel Gonzalez</title>
+    <meta name="description" content="Juego de preguntas y respuestas sobre fútbol argentino. Elige tu equipo, responde y comparte tu puntaje. ¡Desafía a tus amigos!">
+    <meta name="keywords" content="fútbol, preguntas, respuestas, equipos, argentina, quiz, juego, deportes, compartir, WhatsApp">
+    <meta name="author" content="Miguel Gonzalez">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0033a0">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="Preguntas y Respuestas - Fútbol Argentino">
+    <meta property="og:description" content="Desafía tus conocimientos sobre tu equipo favorito y comparte tu puntaje con amigos.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://preguntas-y-respuestas.vercel.app/">
+    <meta property="og:image" content="/Preguntas-de-futbol.png">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Preguntas y Respuestas - Fútbol Argentino">
+    <meta name="twitter:description" content="Desafía tus conocimientos sobre tu equipo favorito y comparte tu puntaje con amigos.">
+    <meta name="twitter:image" content="/Preguntas-de-futbol.png">
+    <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <img src="copa_del_mundo.png" alt="Decoración izquierda" class="decor-img decor-img-left">
     <div class="container">
         <h1>Preguntas y Respuestas</h1>
         <div id="config">
             <h2>Configuración del Juego</h2>
             <label for="playerName">Nombre del Jugador:</label>
-            <input type="text" id="playerName" placeholder="Nombre del Jugador">
-            <label for="theme">Tema:</label>
-            <select id="theme"></select>
+            <input type="text" id="playerName" placeholder="Nombre del Jugador" required>
+            <label for="theme">Equipo:</label>
+            <select id="theme" required>
+                <option value="" selected>Selecciona equipo</option>
+            </select>
             <label for="difficulty">Dificultad:</label>
-            <select id="difficulty">
+            <select id="difficulty" required>
                 <option value="Fácil">Fácil</option>
                 <option value="Medio">Medio</option>
                 <option value="Difícil">Difícil</option>
             </select>
             <button id="startButton">Iniciar Juego</button>
+            <div id="formError" style="color: white; font-weight: bold; margin-top: 10px; min-height: 24px;"></div>
         </div>
         <div id="quiz" style="display: none;">
             <h2 id="questionCount"></h2>
@@ -36,7 +58,13 @@
             <button id="shareButton">Compartir por WhatsApp</button>
         </div>
     </div>
+    <img src="copa_del_mundo.png" alt="Decoración derecha" class="decor-img decor-img-right">
+
     <script src="questions.js"></script>
     <script src="script.js"></script>
+
 </body>
+<footer style="position:fixed; left:0; bottom:0; width:100%; text-align:center; background:rgba(34,34,34,0.95); color:#bbb; font-size:1.2em; padding:12px 0; z-index:10;">
+    Desarrollador del juego: <a href="https://miguelgfcode.com" target="_blank" style="color:#ffb347; text-decoration:none; font-weight:bold;">Miguel Gonzalez</a>
+</footer>
 </html>

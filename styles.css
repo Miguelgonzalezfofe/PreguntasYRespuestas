@@ -1,51 +1,197 @@
+/* Imágenes decorativas laterales solo en escritorio */
+.decor-img {
+    position: fixed;
+    top: 0;
+    height: 70vw;
+    z-index: 1;
+    object-fit: contain;
+    opacity: 0.85;
+    pointer-events: none;
+}
+.decor-img-left {
+    left: 150px;
+    width: auto;
+    max-width: 22vw;
+}
+.decor-img-right {
+    right: 150px;
+    width: auto;
+    max-width: 22vw;
+}
+@media (max-width: 900px) {
+    .decor-img {
+        display: none !important;
+    }
+}
+
+/* Responsividad general */
+body, html {
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+.container {
+    width: 95vw;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 24px 8px;
+    box-sizing: border-box;
+}
+@media (max-width: 600px) {
+    .container {
+        max-width: 98vw;
+        padding: 12px 2vw;
+    }
+    h1, h2 {
+        font-size: 1.2em;
+    }
+    button {
+        font-size: 1em;
+        padding: 10px 12px;
+    }
+    input, select {
+        font-size: 1em;
+        padding: 8px;
+    }
+}
 body {
-    font-family: Arial, sans-serif;
-    background-color: #1a1a1a;
-    color: #fff;
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #232526 0%, #414345 100%);
+    color: #f5f5f5;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    transition: background 0.5s;
 }
 
 .container {
-    padding: 20px;
-    border-radius: 10px;
+    padding: 32px 24px;
+    border-radius: 18px;
     text-align: center;
-    width: 80%;
-    max-width: 600px;
+    width: 90%;
+    max-width: 480px;
+    background: rgba(34, 34, 34, 0.95);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    border: 1px solid #444;
+    animation: fadeIn 0.7s;
 }
 
 button {
-    color: rgb(78, 55, 55);
-    padding: 10px 20px;
-    margin: 10px;
+    background: linear-gradient(90deg, #ffb347 0%, #ffcc80 100%);
+    color: #232526;
+    font-weight: 600;
+    padding: 12px 28px;
+    margin: 12px 8px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 1.1em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    transition: background 0.3s, transform 0.2s;
 }
 
 button:hover {
-    opacity: 0.9;
+    background: linear-gradient(90deg, #ffcc80 0%, #ffb347 100%);
+    transform: scale(1.05);
+    opacity: 1;
 }
 
 input, select {
-    margin: 10px 0;
-    padding: 10px;
-    width: calc(100% - 22px);
-    border-radius: 5px;
-    border: none;
+    margin: 12px 0;
+    padding: 12px;
+    width: calc(100% - 24px);
+    border-radius: 7px;
+    border: 1px solid #888;
+    background: #232526;
+    color: #f5f5f5;
+    font-size: 1em;
+    outline: none;
+    transition: border 0.2s;
+}
+input:focus, select:focus {
+    border: 1.5px solid #ffb347;
+}
+#feedback {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 16px 0;
+    min-height: 32px;
+    transition: color 0.3s;
 }
 
-/* Estilos específicos para equipos */
+#points {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin: 10px 0 18px 0;
+    color: #ffb347;
+    letter-spacing: 1px;
+}
+
+#scoreList {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px 0;
+}
+#scoreList li {
+    background: #232526;
+    color: #ffb347;
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 1.1em;
+}
+
+.decor-img{
+    height: 30vw;
+    padding: 20px;
+}
+
+h1, h2 {
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilos especficos para equipos */
 .boca-juniors {
-    background-color: #0033a0;
+    background: linear-gradient(135deg, #0033a0 0%, #ffd700 100%);
+    color: #232526;
+}
+.boca-juniors .container {
+    background: rgba(0,51,160,0.95);
     color: #ffd700;
 }
-
-.boca-juniors .container {
-    background-color: #0033a0;
+.river-plate {
+    background: linear-gradient(135deg, #e41b17 0%, #fff 100%);
+    color: #232526;
+}
+.river-plate .container {
+    background: rgba(228,27,23,0.95);
+    color: #fff;
+}
+.independiente {
+    background: linear-gradient(135deg, #d50000 0%, #fff 100%);
+    color: #232526;
+}
+.independiente .container {
+    background: rgba(213,0,0,0.95);
+    color: #fff;
+}
+.racing-club {
+    background: linear-gradient(135deg, #00bfff 0%, #fff 100%);
+    color: #232526;
+}
+.racing-club .container {
+    background: rgba(0,191,255,0.95);
+    color: #fff;
 }
 
 .boca-juniors button {
@@ -94,3 +240,4 @@ input, select {
     background-color: #ffffff;
     color: #00a9e0;
 }
+
