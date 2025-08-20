@@ -1,23 +1,4 @@
 /* Imágenes decorativas laterales solo en escritorio */
-.decor-img {
-    position: fixed;
-    top: 0;
-    height: 70vw;
-    z-index: 1;
-    object-fit: contain;
-    opacity: 0.85;
-    pointer-events: none;
-}
-.decor-img-left {
-    left: 150px;
-    width: auto;
-    max-width: 22vw;
-}
-.decor-img-right {
-    right: 150px;
-    width: auto;
-    max-width: 22vw;
-}
 @media (max-width: 900px) {
     .decor-img {
         display: none !important;
